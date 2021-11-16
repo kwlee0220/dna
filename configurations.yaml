@@ -1,0 +1,33 @@
+
+detector:
+  yolov4:
+    normal:
+      cfg: C:/Temp/dna-models/yolov4_torch/cfg/yolov4.cfg
+      weights: C:/Temp/dna-models/yolov4_torch/weights/yolov4.weights
+      class_names: C:/Temp/dna-models/yolov4_torch/data/coco.names
+
+    tiny:
+      cfg: C:/Temp/dna-models/yolov4_torch/cfg/yolov4-tiny.cfg
+      weights: C:/Temp/dna-models/yolov4_torch/weights/yolov4-tiny.weights
+      class_names: C:/Temp/dna-models/yolov4_torch/data/coco.names
+
+  yolov5:
+    s:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5s.pt
+    m:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5m.pt
+    l:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5l.pt
+    x:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5x.pt
+    s6:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5s6.pt
+    m6:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5m6.pt
+    l6:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5l6.pt
+    x6:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/yolov5x6.pt
+    pistol:
+      weights: C:/Temp/dna-models/yolov5_torch/weights/pistol_best.pt
+      score: 0.55
