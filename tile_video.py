@@ -47,7 +47,7 @@ if __name__ == '__main__':
     for cap in caps:
         cap.open()
         if size is None:
-            size = (cap.size / 2).to_int().as_tuple()
+            size = (cap.size / 2).to_int().to_tuple()
 
     output = Path(args.output_video)
     ext = output.suffix.lower()
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         raise ValueError("unknown output video file extension: 'f{ext}'")
     fps = caps[0].fps
     writer = cv2.VideoWriter(str(output.resolve()), fourcc,
-                                    fps, caps[0].size.as_tuple())
+                                    fps, caps[0].size.to_tuple())
 
     while True:
         frames = capture(caps)

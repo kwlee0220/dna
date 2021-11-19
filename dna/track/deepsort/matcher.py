@@ -78,7 +78,7 @@ def combine_cost_matrices(metric_costs, dist_costs, tracks, detections):
     mask = _area_ratios(tracks, detections) < 0.1
     matrix = np.zeros((len(tracks), len(detections)))
     for didx, det in enumerate(detections):
-        w, h = det.bbox.size().as_tuple()
+        w, h = det.bbox.size().to_tuple()
         if w >= _LARGE and h >= _LARGE: # large detections
             # detection 크기가 크면 metric cost에 많은 가중치를 주어, 외형을 보다 많이 고려한다.
             # 또한 외형에 많은 가중치를 주기 때문에 gate용 distance 한계도 넉넉하게 (300) 주는 대신,

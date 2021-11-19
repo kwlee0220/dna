@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import List, Union, Tuple
+import math
 
 import numpy as np
 import cv2
@@ -21,12 +22,19 @@ class Point:
     def xy(self):
         return self.__xy
 
+    def to_tuple(self):
+        return tuple(self.__xy)
+
     @classmethod
     def from_np(cls, xy: np.ndarray) -> Point:
         return Point(xy[0], xy[1])
 
     def distance_to(self, pt:Point) -> float:
         return np.linalg.norm(self.xy - pt.xy)
+
+    def angle_with(self, pt:Point) -> float:
+        delta = pt - self
+        return math.atan2(delta.height, delta.width)
 
     @staticmethod
     def line_function(pt1:Point, pt2:Point):
@@ -104,7 +112,7 @@ class Size2d:
     def from_np(cls, wh: np.ndarray) -> Point:
         return Size2d(wh[0], wh[1])
 
-    def as_tuple(self) -> Tuple[Union[int, float],Union[int, float]]:
+    def to_tuple(self) -> Tuple[Union[int, float],Union[int, float]]:
         return tuple(self.__wh)
 
     def is_valid(self) -> bool:
@@ -122,6 +130,9 @@ class Size2d:
     def height(self) -> float:
         return self.__wh[1]
 
+    def aspect_ratio(self) -> float:
+        return self.__wh[0] / self.__wh[1]
+
     def area(self) -> float:
         return self.__wh[0] * self.__wh[1]
 
@@ -130,6 +141,17 @@ class Size2d:
 
     def to_int(self):
         return Size2d.from_np(np.rint(self.wh).astype(int))
+
+    def norm(self):
+        return np.linalg.norm(self.wh)
+
+    def __add__(self, rhs) -> Size2d:
+        if isinstance(rhs, Size2d):
+            return Size2d.from_np(self.wh + rhs.wh)
+        elif isinstance(rhs, int) or isinstance(rhs, float):
+            return Size2d.from_np(self.wh - np.array([rhs, rhs]))
+        else:
+            raise ValueError('invalid right-hand-side:', rhs)
 
     def __sub__(self, rhs) -> Size2d:
         if isinstance(rhs, Size2d):
@@ -226,6 +248,9 @@ class Box:
 
     def size(self) -> Size2d:
         return Size2d.from_np(self.wh) if self.is_valid() else EMPTY_SIZE2D
+
+    def aspect_ratio(self) -> float:
+        return self.wh[0] / self.wh[1]
 
     def area(self) -> int:
         return self.size().area() if self.is_valid() else 0

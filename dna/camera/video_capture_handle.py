@@ -60,7 +60,7 @@ class VideoCaptureHandle:
         _, mat = self.cap.read()
         if mat is not None:
             if self.interpolation:
-                mat = cv2.resize(mat, self.size.as_tuple(), interpolation=self.interpolation)
+                mat = cv2.resize(mat, self.size.to_tuple(), interpolation=self.interpolation)
             self.frame_index += 1
 
         return time.time(), self.frame_index, mat

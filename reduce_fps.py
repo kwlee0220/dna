@@ -32,7 +32,7 @@ class FpsReducer(ImageProcessor):
             raise ValueError("unknown output video file extension: 'f{ext}'")
         fps = capture.fps / self.skip
         self.writer = cv2.VideoWriter(str(self.output_video.resolve()), fourcc,
-                                        fps, capture.size.as_tuple())
+                                        fps, capture.size.to_tuple())
 
     def on_stopped(self) -> None:
         self.writer.release()
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         raise ValueError("unknown output video file extension: 'f{ext}'")
     fps = capture.fps / args.skip
     writer = cv2.VideoWriter(str(output.resolve()), fourcc,
-                                    fps, capture.size.as_tuple())
+                                    fps, capture.size.to_tuple())
 
     progress = tqdm(total=capture.frame_count)
     while capture.is_open():

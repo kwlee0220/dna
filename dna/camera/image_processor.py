@@ -58,7 +58,7 @@ class ImageProcessor(metaclass=ABCMeta):
                 else:
                     raise ValueError("unknown output video file extension: 'f{ext}'")
                 self.writer = cv2.VideoWriter(str(self.output_video.resolve()), fourcc,
-                                                self.__cap.fps, self.__cap.size.as_tuple())
+                                                self.__cap.fps, self.__cap.size.to_tuple())
         except Exception as e:
             if self.writer:
                 self.writer.release()

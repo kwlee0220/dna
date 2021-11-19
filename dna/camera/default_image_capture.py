@@ -93,7 +93,7 @@ class DefaultImageCapture(ImageCapture):
         _, mat = self.__cap.read()
         if mat is not None:
             if self.interpolation:
-                mat = cv2.resize(mat, self.size.as_tuple(), interpolation=self.interpolation)
+                mat = cv2.resize(mat, self.size.to_tuple(), interpolation=self.interpolation)
             self.__frame_index += 1
 
         return time.time(), self.__frame_index, mat
